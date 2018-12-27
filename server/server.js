@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(require('./routes/usuario'));
 
-const dbUrl = 'mongodb://localhost:27017/cafe';
+const dbUrl = process.env.URLDB;
 
 mongoose.connect(dbUrl, { useNewUrlParser: true });
 
