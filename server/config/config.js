@@ -14,11 +14,11 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 let urlDB;
 
-// if (process.env.NODE_ENV === 'dev') {
-//     urlDB = 'mongodb://localhost:27017/cafe';
-// } else {
-    urlDB = 'mongodb://cafe-user:cafe123456@ds123619.mlab.com:23619/ajrmzcs-cafe'
-// }
+if (process.env.NODE_ENV === 'dev') {
+     urlDB = 'mongodb://localhost:27017/cafe';
+ } else {
+    urlDB = process.env.MONGO_URI
+ }
 
 process.env.URLDB = urlDB;
 
