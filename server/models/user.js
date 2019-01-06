@@ -3,47 +3,47 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 let validRoles = {
     values: ['ADMIN_ROLE', 'USER_ROLE'],
-    message: '{VALUE} no es un rol válido'
+    message: '{VALUE} is not a valid role'
 }
 
 let Schema = mongoose.Schema;
 
-let usuarioSchema = new Schema({
-    nombre: {
+let userSchema = new Schema({
+    name: {
         type: String,
-        required: [true, 'El nombre es necesario']
+        required: [true, 'The name is required']
 
     },
     email: {
         type: String,
         unique: true,
-        required: [true, 'El correo es necesario']
+        required: [true, 'The email is required']
     },
     password: {
         type: String,
-        required: [true, 'La contraseña es obligatoria']
+        required: [true, 'The password is required']
     },
     img: {
         type: String,
         required: false,
-    }, // No es obligatoria
+    },
     role: {
         type: String,
         default: 'USER_ROLE',
         enum: validRoles
-    }, // Default: 'USER_ROLE' 
-    estado: {
+    },
+    status: {
         type: Boolean,
         default: true
-    }, // Boolean
+    },
     google: {
         type: Boolean,
         default: false
-    } // Boolean
+    }
 });
 
-// Modificamos las propiedades del metodo toJSON para eliminar el password del objeto
-usuarioSchema.methods.toJSON = function() {
+// toJSON properties are modified in order to be able to remove the password field from the object
+userSchema.methods.toJSON = function() {
 
     let user = this;
     let userObject = user.toObject();
@@ -55,6 +55,6 @@ usuarioSchema.methods.toJSON = function() {
 };
 
 
-usuarioSchema.plugin(uniqueValidator, { message: '{PATH} debe ser único' });
+userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique' });
 
-module.exports = mongoose.model('Usuario', usuarioSchema);
+module.exports = mongoose.model('User', userSchema);

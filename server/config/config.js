@@ -1,15 +1,29 @@
 // =====================
-//      Puerto
+//      PORT
 // =====================
 process.env.PORT = process.env.PORT || 3000;
 
 // =====================
-//      Entorno
+//      Environment
 // =====================
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 // =====================
-//      Base de datos
+//      Token Expiration
+// =====================
+// 60 seconds
+// 60 minutes
+// 24 hours
+// 30 days
+process.env.TOKEN_EXPIRATION = 60 * 60 * 24 * 30;
+
+// =====================
+//      Authentication SEED
+// =====================
+process.env.SEED = process.env.SEED || 'this-is-the-development-seed';
+
+// =====================
+//      Database
 // =====================
 
 let urlDB;
@@ -21,5 +35,3 @@ if (process.env.NODE_ENV === 'dev') {
  }
 
 process.env.URLDB = urlDB;
-
-

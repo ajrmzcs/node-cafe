@@ -8,7 +8,7 @@ const app = express();
 
 const bodyParser = require('body-parser');
 
-// app.use es para agregar middleware
+// app.use is for adding middleware
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,7 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(require('./routes/usuario'));
+// Routes global configuration
+app.use(require('./routes/index'));
 
 const dbUrl = process.env.URLDB;
 
@@ -31,5 +32,5 @@ mongoose.connection.on('error', (err) => {
 });
 
 app.listen(process.env.PORT, () => {
-    console.log('Escuchando puerto:', process.env.PORT);
+    console.log('Listening port:', process.env.PORT);
 });
