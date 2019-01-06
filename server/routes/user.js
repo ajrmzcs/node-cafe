@@ -7,11 +7,11 @@ const _ = require('underscore');
 const User = require('../models/user');
 
 // Usamos destructuracion para importar solo la funcion verificaToken
-const { verificaToken } = require('../middlewares/authentication');
+const { verifyToken } = require('../middlewares/authentication');
 
 const app = express();
 
-app.get('/users', verificaToken, (req, res) => {
+app.get('/users', verifyToken, (req, res) => {
     
     let from = req.query.from || 0;
     from = Number(from);
@@ -19,7 +19,7 @@ app.get('/users', verificaToken, (req, res) => {
     let limit = req.query.limit || 5;
     limit = Number(limit);
     
-    User.find({status: true}, 'name email role statis google img')
+    User.find({status: true}, 'name email role status google img')
            .skip(from)
            .limit(limit)
            .exec((err, users) => {
@@ -53,7 +53,7 @@ app.post('/users', function(req, res) {
         role: body.role
     });
 
-    usuario.save((err, dbUser) => {
+    user.save((err, dbUser) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -63,7 +63,7 @@ app.post('/users', function(req, res) {
 
         res.json({
             ok: true,
-            usuario: dbUser
+            user: dbUser
         });
 
     });
@@ -84,7 +84,7 @@ app.put('/users/:id', function(req, res) {
         
         res.json({
             ok: true,
-            usuario: dbUser
+            user: dbUser
         });
 
     });
@@ -101,7 +101,7 @@ app.delete('/users/:id', function(req, res) {
         status: false
     }
 
-    User.findByIdAndUpdate(id, statusChange, {new: true}, (err, deletedUser) => {
+    User.findByIdAndDelete(id, (err, deletedUser) => {
 
         if (err) {
             return res.status(400).json({
